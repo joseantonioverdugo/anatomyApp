@@ -1,7 +1,14 @@
 <template>
-    <button
-        class="inline-flex items-center rounded-md border border-transparent bg-gray-800 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-gray-700 focus:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 active:bg-gray-900"
-    >
-        <slot />
-    </button>
+  <button :type="type" class="rounded-lg border border-transparent bg-purple-600 px-4 py-2 text-center text-sm font-medium leading-5 text-white transition-colors duration-150 hover:bg-purple-700 focus:outline-none focus:ring active:bg-purple-600">
+    <slot/>
+  </button>
 </template>
+
+<script setup>
+defineProps({
+    type: {
+        type: String,
+        default: 'submit',
+    },
+});
+</script>

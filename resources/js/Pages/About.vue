@@ -4,15 +4,15 @@ import { Head } from '@inertiajs/vue3';
 </script>
 
 <template>
-	<Head title="Dashboard" />
+	<Head title="About us" />
 	
 	<AuthenticatedLayout>
 		<template #header>
-			Dashboard
+			About us
 		</template>
 		
 		<div class="p-4 bg-white rounded-lg shadow-xs">
-			You're logged in!
+			Sample static text page
 		</div>
 	</AuthenticatedLayout>
 </template>
