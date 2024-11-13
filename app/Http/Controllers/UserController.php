@@ -13,4 +13,9 @@ class UserController extends Controller
             'users' => User::paginate()
         ]);
     }
+
+    public function test()
+    {
+        return Inertia::render('Test');
+    }
 }

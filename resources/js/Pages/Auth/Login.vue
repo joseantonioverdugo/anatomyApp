@@ -64,11 +64,15 @@ const submit = () => {
 								<span class="ml-2 text-sm text-gray-600">Remember me</span> </label>
 						</div>
 						
-						<div class="flex items-center justify-end mt-4">
-							<Link v-if="canResetPassword" :href="route('password.request')" class="text-sm text-gray-600 underline  hover:text-gray-900">
-								Forgot your password?
-							</Link>
-							
+						<div class="flex items-center justify-between mt-4">
+							<div class="flex flex-col">
+								<Link v-if="canResetPassword" :href="route('password.request')" class="text-sm text-gray-600 underline hover:text-gray-900">
+									Forgot your password?
+								</Link>
+								<Link class="text-sm text-gray-600 underline hover:text-gray-900" :href="route('register')">
+									Create account
+								</Link>
+							</div>
 							<PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
 								Log in
 							</PrimaryButton>
