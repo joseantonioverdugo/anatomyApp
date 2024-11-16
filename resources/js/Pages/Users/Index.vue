@@ -36,6 +36,9 @@
 								<th class="px-4 py-3">Name</th>
 								<th class="px-4 py-3">Email</th>
 								<th class="px-4 py-3">Administrador</th>
+								<th class="px-4 py-3">Detalle</th>
+								<th class="px-4 py-3">Editar</th>
+								<th class="px-4 py-3">Eliminar</th>
 							</tr>
 						</thead>
 						<tbody class="bg-white divide-y">

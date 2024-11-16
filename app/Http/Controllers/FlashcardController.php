@@ -14,7 +14,7 @@ class FlashcardController extends Controller
     public function index()
     {
         return Inertia::render('Flashcards/Index', [
-            // 'flashcards' => Flashcard::paginate(),
+            'flashcards' => Flashcard::paginate(),
         ]);
     }
 

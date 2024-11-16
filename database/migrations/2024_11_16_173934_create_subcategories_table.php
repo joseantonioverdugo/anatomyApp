@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('flashcards', function (Blueprint $table) {
+        Schema::create('subcategories', function (Blueprint $table) {
             $table->id();
-            $table->string('title', 100)->nullable();
-            $table->string('category', 100)->nullable();
-            $table->string('subcategory', 100)->nullable();
-            $table->string('public_id')->nullable();
-            $table->string('url', 255)->nullable();
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -27,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('subcategories');
     }
 };
