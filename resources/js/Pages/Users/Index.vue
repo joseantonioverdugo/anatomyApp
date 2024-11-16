@@ -87,7 +87,7 @@
 	<Modal :show="showModal" @close="closeModalDelete">
         <div class="p-6">
             <p class="text-2xtext-gray-500">
-                Are you sure delete to
+                ¿Estás seguro de que deseas eliminar a
                 <span >{{ form.title }}</span>?</p>
                 <PrimaryButton @click="deleteUser">Delete</PrimaryButton>
         </div>
@@ -103,14 +103,16 @@
                 	<span class="text-gray-700 dark:text-gray-400">
 						Nombre
 					</span>
-                	<input v-model="form.name" class="block w-full mt-1 text-smfocus:border-purple-400 focus:outline-none focus:shadow-outline-purple form-input">
+                	<input v-model="form.name" type="text" class="block w-full mt-1 text-smfocus:border-purple-400 focus:outline-none focus:shadow-outline-purple form-input">
               	</label>
+				<InputError :message="form.errors.name" />
 				<label class="block mt-4 text-sm">
 					<span class="text-gray-700 dark:text-gray-400">
 						Email
 					</span>
 					<input v-model="form.email" type="email" class="block w-full mt-1 text-smfocus:border-purple-400 focus:outline-none focus:shadow-outline-purple form-input">
 				</label>
+				<InputError :message="form.errors.email" />
 				<label class="block mt-4 text-sm">
 					<span class="text-gray-700 dark:text-gray-400">
 						Administrador
@@ -120,6 +122,14 @@
 					  <option :value="false">No</option>
 					</select>
 				</label>
+				<InputError :message="form.errors.is_admin" />
+				<label v-if="!form.id" class="block text-sm">
+                	<span class="text-gray-700 dark:text-gray-400">
+						Contraseña
+					</span>
+                	<input v-model="form.password" type="password" class="block w-full mt-1 text-smfocus:border-purple-400 focus:outline-none focus:shadow-outline-purple form-input">
+              	</label>
+				<InputError :message="form.errors.password" />
                 <PrimaryButton @click="storeUser">Save</PrimaryButton>
             </div>
         </div>
@@ -141,6 +151,7 @@ import WarningButton from '@/Components/WarningButton.vue';
 import DarkButton from '@/Components/DarkButton.vue';
 import NavLink from '@/Components/NavLink.vue';
 import Modal from '@/Components/Modal.vue';
+import InputError from '@/Components/InputError.vue';
 
 const props = defineProps({
 	users: {
@@ -153,9 +164,10 @@ const showModalForm = ref(false);
 const title = ref('');
 const form = useForm({
     id: null,
-    name: null,
-    email: null,
-    is_admin: null
+    name: '',
+    email: '',
+    is_admin: false,
+	password: ''
 });
 
 const openModalForm =(option, user) => {
@@ -172,11 +184,28 @@ const openModalForm =(option, user) => {
 		form.name = null;
 		form.email = null;
 		form.is_admin = null;
+		form.password = null;
 	}
-
 }
+
+const storeUser = () => {
+	if(form.id){
+		form.put(route('users.update', form.id));
+		console.log(form);
+		closeModalForm();
+	}else{
+		form.post(route('users.store'));
+		closeModalForm();
+	}
+}
+
 const closeModalForm = () => {
 	showModalForm.value = false;
+	form.reset();
+	form.errors.name = null;
+	form.errors.email = null;
+	form.errors.is_admin = null;
+	form.errors.password = null;
 }
 
 const openModalDelete = (user) => {
