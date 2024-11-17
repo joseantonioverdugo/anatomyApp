@@ -21,14 +21,6 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return Inertia::render('Users/Create');
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(StoreUserRequest $request)
@@ -42,16 +34,6 @@ class UserController extends Controller
     public function show(string $id)
     {
         return Inertia::render('Users/Show', [
-            'user' => User::findOrFail($id)
-        ]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        return Inertia::render('Users/Edit', [
             'user' => User::findOrFail($id)
         ]);
     }

@@ -37,10 +37,10 @@ Route::get('/dashboard', function () {
 Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/about', fn () => Inertia::render('About'))->name('about');
 
-    Route::resource('users', UserController::class);
-    Route::resource('flashcards', FlashcardController::class);
-    Route::resource('categories', CategoryController::class);
-    Route::resource('subcategories', SubcategoryController::class);
+    Route::resource('users', UserController::class)->only(['index', 'store', 'show', 'update', 'destroy']);
+    Route::resource('flashcards', FlashcardController::class)->only(['index', 'store', 'show', 'update', 'destroy']);
+    Route::resource('categories', CategoryController::class)->only(['index', 'store', 'show', 'update', 'destroy']);
+    Route::resource('subcategories', SubcategoryController::class)->only(['index', 'store', 'show', 'update', 'destroy']);
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
