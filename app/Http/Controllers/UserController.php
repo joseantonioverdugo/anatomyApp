@@ -34,8 +34,6 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
         User::create($request->validated());
-
-        return redirect()->route('users.index');
     }
 
     /**
@@ -73,8 +71,6 @@ class UserController extends Controller
         }
 
         $user->update($data);
-
-        return redirect()->route('users.index');
     }
 
     /**
@@ -83,8 +79,6 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         User::findOrFail($id)->delete();
-
-        return redirect()->route('users.index');
     }
 
     public function test()
