@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Flashcard::class)->constrained()->onDelete('cascade');
             $table->string('option', 255)->nullable();
+            $table->integer('option_number')->nullable();
             $table->timestamps();
         });
     }
