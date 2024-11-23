@@ -38,7 +38,8 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/about', fn () => Inertia::render('About'))->name('about');
 
     Route::resource('users', UserController::class)->only(['index', 'store', 'show', 'update', 'destroy']);
-    Route::resource('flashcards', FlashcardController::class)->only(['index', 'store', 'show', 'update', 'destroy']);
+    Route::resource('flashcards', FlashcardController::class)->except(['update']);
+    Route::match(['put', 'patch', 'post'], 'flashcards/{flashcard}', [FlashcardController::class, 'update'])->name('flashcards.update');
     Route::resource('categories', CategoryController::class)->only(['index', 'store', 'show', 'update', 'destroy']);
     Route::resource('subcategories', SubcategoryController::class)->only(['index', 'store', 'show', 'update', 'destroy']);
 
