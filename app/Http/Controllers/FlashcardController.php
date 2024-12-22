@@ -11,6 +11,7 @@ use App\Http\Resources\SubcategoryResource;
 use Illuminate\Http\Request;
 use App\Models\Flashcard;
 use App\Models\Category;
+use App\Models\Option;
 use App\Models\Subcategory;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Log;
@@ -35,9 +36,16 @@ class FlashcardController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+
     public function store(FlashcardRequest $request)
     {
         $data = $request->validated();
+
+        if(isset($data['options'])) {
+            $data['options'] = array_filter($data['options'], function($option) {
+                return !empty($option['option']) && !empty($option['option_number']);
+            });
+        }
 
         $file = $request->file('image');
 
@@ -46,13 +54,21 @@ class FlashcardController extends Controller
                 $public_id = $obj->getPublicId();
                 $url = $obj->getSecurePath();
 
-            Flashcard::create([
+            $flashcard = Flashcard::create([
                 'title' => $data['title'],
                 'category_id' => $data['category_id'],
                 'subcategory_id' => $data['subcategory_id'],
                 'url' => $url,
                 'public_id' => $public_id,
             ]);
+
+            foreach($data['options'] as $option) {
+                Option::create([
+                    'option' => $option['option'],
+                    'option_number' => $option['option_number'],
+                    'flashcard_id' => $flashcard->id,
+                ]);
+            }
 
             return redirect()->route('flashcards.index')->with('success', 'FlashCard creada exitosamente.');
         } catch (\Exception $e) {
@@ -78,9 +94,26 @@ class FlashcardController extends Controller
      */
     public function update(UpdateFlashcardRequest $request, string $id)
     {   
-    
-        $flashcard = Flashcard::findOrFail($id);
         $data = $request->validated();
+
+        Log::info('Data: ' . json_encode($data));
+
+        if(isset($data['options'])) {
+            $data['options'] = array_filter($data['options'], function($option) {
+                return !empty($option['option']) && !empty($option['option_number']);
+            });
+        
+            foreach($data['options'] as $option) {
+                Option::updateOrCreate([
+                    'option_number' => $option['option_number'],
+                    'flashcard_id' => $id,
+                ], [
+                    'option' => $option['option'],
+                ]);
+            }
+        }
+
+        $flashcard = Flashcard::findOrFail($id);
         
         if ($request->hasFile('image')) {
             
@@ -100,7 +133,6 @@ class FlashcardController extends Controller
 
         $flashcard->save();
 
-        // Agregar la redirección después de actualizar
         return redirect()->route('flashcards.index')->with('success', 'FlashCard actualizada exitosamente.');
     }
 

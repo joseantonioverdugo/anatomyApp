@@ -142,6 +142,47 @@
                 </label>
                 <InputError :message="form.errors.image" />
 
+                <label class="block mt-4 text-sm">
+                    <span class="text-gray-700 dark:text-gray-400">
+                        Opciones
+                    </span>
+                    <table class="w-full mt-2">
+                        <thead>
+                            <tr>
+                                <th class="w-16 text-gray-700 dark:text-gray-400">Número</th>
+                                <th class="text-gray-700 dark:text-gray-400">Texto</th>
+                                <th class="text-gray-700 dark:text-gray-400">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(option, index) in form.options" :key="index" class="text-gray-700">
+                                <td>
+                                    <input
+                                        v-model="option.option_number"
+                                        type="number"
+                                        class="w-16 block mt-1 text-sm focus:border-purple-400 focus:outline-none focus:shadow-outline-purple form-input"
+                                </td>
+                                <td>
+                                    <input
+                                        v-model="option.option"
+                                        type="text"
+                                        class="flex-1 block w-full mt-1 text-sm focus:border-purple-400 focus:outline-none focus:shadow-outline-purple form-input"
+                                    >
+                                </td>
+                                <td>
+                                    <button type="button" @click="removeOption(index)" class="ml-2 text-red-500">
+                                        Eliminar
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button type="button" @click="addOption" class="mt-2 text-blue-500">
+                        Añadir Opción
+                    </button>
+                </label>
+                <InputError :message="form.errors.options" />
+
                 <PrimaryButton @click="storeFlashcard">Guardar</PrimaryButton>
             </div>
         </div>
@@ -194,6 +235,10 @@ const form = useForm({
     category_id: null,
     subcategory_id: null,
     image: null,
+    options: [{ 
+        option: '',
+        option_number: null,
+     }],
 });
 
 const openModalForm = (option, flashcard) => {
@@ -206,10 +251,25 @@ const openModalForm = (option, flashcard) => {
         form.category_id = flashcard.category.id;
         form.subcategory_id = flashcard.subcategory.id;
         form.image = flashcard.image;
+        form.options = flashcard.options || [{ option: '', option_number: null }];
     } else {
         title.value = 'Crear FlashCard';
         form.reset();
         form.id = null;
+        form.options = [{ option: '', option_number: null }];
+    }
+}
+
+const addOption = () => {
+    form.options.push({ 
+        option: '',
+        option_number: null 
+    });
+}
+
+const removeOption = (index) => {
+    if (form.options.length > 1) {
+        form.options.splice(index, 1);
     }
 }
 
@@ -222,7 +282,7 @@ const storeFlashcard = () => {
                 form.reset();
             },
             onError: (errors) => {
-                console.log('Errores:', errors);
+                console.log(errors);
             }
         });
     } else {
@@ -232,7 +292,7 @@ const storeFlashcard = () => {
                 form.reset();
             },
             onError: (errors) => {
-                console.log('Errores:', errors);
+                console.log(errors);
             }
         });
     }

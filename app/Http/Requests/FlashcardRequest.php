@@ -25,7 +25,10 @@ class FlashcardRequest extends FormRequest
             'title' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
             'subcategory_id' => 'required|exists:subcategories,id',
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048'
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'options' => 'required|array|min:2',
+            'options.*.option' => 'required|string',
+            'options.*.option_number' => 'required|integer'
         ];
     }
 }

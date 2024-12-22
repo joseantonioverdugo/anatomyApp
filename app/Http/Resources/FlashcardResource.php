@@ -19,10 +19,9 @@ class FlashcardResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            // 'category' => $this->category->name,
-            // 'subcategory' => $this->subcategory->name,
             'category' => new CategoryResource($this->whenLoaded('category')),
             'subcategory' => new SubcategoryResource($this->whenLoaded('subcategory')),
+            'options' => $this->options,
             'url' => $this->url,
         ];
     }

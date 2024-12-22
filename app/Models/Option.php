@@ -10,6 +10,7 @@ class Option extends Model
     protected $fillable = [
         'flashcard_id',
         'option',
+        'option_number'
     ];
 
     public function flashcard(): BelongsTo

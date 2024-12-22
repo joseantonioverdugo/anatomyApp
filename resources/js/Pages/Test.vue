@@ -5,14 +5,7 @@ import { Head } from '@inertiajs/vue3';
 
 <template>
 	<Head title="App" />
-	
-	<AuthenticatedLayout>
-		<template #header>
-            Home
-		</template>
-		
-		<div class="p-4 bg-white rounded-lg shadow-xs">
+	<div class="p-4 bg-white rounded-lg shadow-xs">
             Welcome to your app
 		</div>
-	</AuthenticatedLayout>
 </template>

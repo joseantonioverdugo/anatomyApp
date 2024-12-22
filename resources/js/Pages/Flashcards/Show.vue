@@ -17,8 +17,12 @@
                 <p>Categoría: <span class="text-gray-900 font-semibold">{{ flashcard.data.category.name }}</span></p>
                 <p>Subcategoría: <span class="text-gray-900 font-semibold">{{ flashcard.data.subcategory.name }}</span></p>
                 <p>Imagen:</p>
-                <img :src="flashcard.data.url" alt="Imagen" class="mt-4 w-64 h-64 object-cover" v-if="flashcard.data.url">
-                                    <span v-else>No hay imagen</span>
+                <img v-if="flashcard.data.url" :src="flashcard.data.url" alt="Imagen" class="mt-4 w-64 h-64 object-cover">
+                <span v-else>No hay imagen</span>
+                <p>Opciones:</p>
+                <ul v-for="option in flashcard.data.options" :key="option.id">
+                    <li class="text-gray-900 font-semibold">{{ option.option_number }} {{ option.option }}</li>
+                </ul>
             </div>
         </div>
     </AuthenticatedLayout>

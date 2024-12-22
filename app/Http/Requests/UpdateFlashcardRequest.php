@@ -27,6 +27,9 @@ class UpdateFlashcardRequest extends FormRequest
             'category_id' => 'required|exists:categories,id',
             'subcategory_id' => 'required|exists:subcategories,id',
             'image' => 'sometimes|nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'options' => 'required|array|min:2',
+            'options.*.option' => 'required|string',
+            'options.*.option_number' => 'required|integer'
         ];
     }
 }
