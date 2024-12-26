@@ -1,11 +1,20 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
+import { usePage } from '@inertiajs/vue3';
+
+const { props } = usePage();
+
+const user = props.auth.user;
+
 </script>
 
 <template>
 	<Head title="App" />
-	<div class="p-4 bg-white rounded-lg shadow-xs">
-            Welcome to your app
+	<AuthenticatedLayout>
+		<div>
+			<p>Nombre del Usuario: {{ user.name }}</p>
+			<p>Mejor puntuación: {{ user.best_score }}</p>
 		</div>
+	</AuthenticatedLayout>
 </template>
