@@ -19,7 +19,7 @@ class IsAdmin
             return $next($request);
         } 
         if(Auth::check() && !Auth::user()->is_admin) {
-            return redirect()->route('test');
+            return redirect()->route('game');
         }
     }
 }

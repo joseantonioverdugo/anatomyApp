@@ -136,7 +136,7 @@
                     <input
                         @change="handleFileUpload"
                         type="file"
-                        accept=".jpg, .jpeg, .png"
+                        accept=".jpg, .jpeg, .png, .webp"
                         class="block w-full mt-1 text-sm focus:border-purple-400 focus:outline-none focus:shadow-outline-purple form-input"
                     >
                 </label>

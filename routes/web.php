@@ -49,5 +49,5 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
 });
 
 
-Route::get('/test', [UserController::class, 'test'])->name('test')->middleware(['auth','isUser']);
+Route::get('/game', [UserController::class, 'game'])->name('game')->middleware(['auth','isUser']);
 require __DIR__.'/auth.php';

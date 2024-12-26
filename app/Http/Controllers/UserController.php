@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
+use App\Models\Flashcard;
+use App\Http\Resources\FlashcardResource;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Hash;
 
@@ -63,8 +66,12 @@ class UserController extends Controller
         User::findOrFail($id)->delete();
     }
 
-    public function test()
+    public function game()
     {
-        return Inertia::render('Test');
+        $flashcards = Flashcard::with('category', 'subcategory')->get();
+        return Inertia::render('Game', [
+            'flashcards' => FlashcardResource::collection($flashcards),
+            'user' => Auth::user()
+        ]);
     }
 }
