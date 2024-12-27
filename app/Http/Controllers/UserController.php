@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Flashcard;
 use App\Http\Resources\FlashcardResource;
@@ -73,5 +74,19 @@ class UserController extends Controller
             'flashcards' => FlashcardResource::collection($flashcards),
             'user' => Auth::user()
         ]);
+    }
+
+    public function updateBestScore(Request $request, string $id)
+    {
+        $request->validate([
+            'score' => 'required|integer'
+        ]);
+
+        $user = User::findOrFail($id);
+
+        if ($request->score >= $user->best_score) {
+            $user->best_score = $request->score;
+            $user->save();
+        }
     }
 }

@@ -50,4 +50,5 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
 
 
 Route::get('/game', [UserController::class, 'game'])->name('game')->middleware(['auth','isUser']);
+Route::patch('/best-score/{id}', [UserController::class, 'updateBestScore'])->name('best-score')->middleware(['auth','isUser']);
 require __DIR__.'/auth.php';

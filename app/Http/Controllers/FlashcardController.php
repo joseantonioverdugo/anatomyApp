@@ -96,8 +96,6 @@ class FlashcardController extends Controller
     {   
         $data = $request->validated();
 
-        Log::info('Data: ' . json_encode($data));
-
         if(isset($data['options'])) {
             $data['options'] = array_filter($data['options'], function($option) {
                 return !empty($option['option']) && !empty($option['option_number']);
