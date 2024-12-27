@@ -36,7 +36,7 @@ class AuthenticatedSessionController extends Controller
         if(Auth::user()->is_admin){
             return redirect('dashboard');
         }else{
-            return redirect('test');
+            return redirect('game');
         }
     }
 

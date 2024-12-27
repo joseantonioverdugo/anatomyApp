@@ -16,7 +16,11 @@
 				<div class="mt-4 grid grid-cols-2 gap-6">
 					<div @click="handleAnswer(option)" v-for="(option) in selectedOptions" :key="option.id" :class="[
 						'flex justify-start items-center border border-gray-300 p-2 rounded-lg cursor-pointer',
-						selectedAnswer === option ? 'bg-amber-300' : '']">
+						selectedAnswer === option ? 'bg-amber-300' : '', 
+						isCorrect === false && selectedAnswer === option ? 'bg-red-300' : '', 
+						isCorrect === true && selectedAnswer === option ? 'bg-green-300' : '', 
+						isCorrect === false && correctAnswer === option ? 'bg-green-300' : '']"
+					>
 						<p>{{ option.option }}</p>
 					</div>
 				</div>
@@ -45,6 +49,7 @@ const selectedFlashcard = ref([]);
 const selectedOptions = ref([]);
 const correctAnswer = ref({});
 const selectedAnswer = ref(null);
+const isCorrect = ref(null);
 
 const starNewGame = () => {
 	newGame.value = true;
@@ -65,11 +70,11 @@ const getRandomOptions = () => {
 };
 
 const handleAnswer = (option) => {
-	if(selectedAnswer. value === option){
+	if(selectedAnswer.value === option){
 		if(selectedAnswer.value === correctAnswer.value){
-			alert('Correcto');
+			isCorrect.value = true;
 		}else{
-			alert('Incorrecto');
+			isCorrect.value = false;
 		}
 	}else{
 		selectedAnswer.value = option;
