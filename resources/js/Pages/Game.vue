@@ -14,15 +14,20 @@
 					<p>¿Qué opción es la número {{ correctAnswer.option_number }}?</p>
 				</div>
 				<div class="mt-4 grid grid-cols-2 gap-6">
-					<div @click="handleAnswer(option)" v-for="(option) in selectedOptions" :key="option.id" :class="[
-						'flex justify-center items-center border border-gray-300 p-2 rounded-lg cursor-pointer',
-						selectedAnswer === option ? 'bg-amber-300' : '', 
-						isCorrect === false && selectedAnswer === option ? 'bg-red-300' : '', 
-						isCorrect === true && selectedAnswer === option ? 'bg-green-300' : '', 
-						isCorrect === false && correctAnswer === option ? 'bg-green-300' : '']"
+					<button 
+            @click="handleAnswer(option)" v-for="(option) in selectedOptions" 
+            :key="option.id" 
+            :disabled = "isCorrect === false" 
+            :class="[
+              'flex justify-center items-center border border-gray-300 p-2 rounded-lg cursor-pointer',
+              selectedAnswer === option ? 'bg-amber-300' : '', 
+              isCorrect === false && selectedAnswer === option ? 'bg-red-300' : '', 
+              isCorrect === true && selectedAnswer === option ? 'bg-green-300' : '', 
+              isCorrect === false && correctAnswer === option ? 'bg-green-300' : '',
+              isCorrect === false ? 'disabled:opacity-65' : '']"
 					>
-						<p>{{ option.option }}</p>
-					</div>
+            {{ option.option }}
+					</button>
 				</div>
 			</div>
 			<div v-if="isCorrect === false" class="mt-4 flex flex-col justify-center items-center">
