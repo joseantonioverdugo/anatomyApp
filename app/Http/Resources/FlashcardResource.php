@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\CategoryResource;
 use App\Http\Resources\SubcategoryResource;
+use App\Http\Resources\OptionResource;
 
 class FlashcardResource extends JsonResource
 {
@@ -21,7 +22,7 @@ class FlashcardResource extends JsonResource
             'title' => $this->title,
             'category' => new CategoryResource($this->whenLoaded('category')),
             'subcategory' => new SubcategoryResource($this->whenLoaded('subcategory')),
-            'options' => $this->options,
+            'options' => OptionResource::collection($this->options),
             'url' => $this->url,
         ];
     }

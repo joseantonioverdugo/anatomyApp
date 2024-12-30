@@ -21,7 +21,7 @@
                 <span v-else>No hay imagen</span>
                 <p>Opciones:</p>
                 <ul v-for="option in flashcard.data.options" :key="option.id">
-                    <li class="text-gray-900 font-semibold">{{ option.option_number }} {{ option.option }}</li>
+                    <li class="text-gray-900 font-semibold">{{ option.optionNumber }} {{ option.option }}</li>
                 </ul>
             </div>
         </div>

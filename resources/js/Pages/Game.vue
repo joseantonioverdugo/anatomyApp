@@ -11,7 +11,7 @@
 					<img class="h-96 w-96 rounded-lg" :src="selectedFlashcard.url" alt="flashcard">
 				</div>
 				<div class="mt-4">
-					<p>¿Qué opción es la número {{ correctAnswer.option_number }}?</p>
+					<p>¿Qué opción es la número {{ correctAnswer.optionNumber }}?</p>
 				</div>
 				<div class="mt-4 grid grid-cols-2 gap-6">
 					<button 
@@ -47,13 +47,10 @@ import TopMenu from '../Layouts/TopMenu.vue';
 
 
 const props = defineProps({
-	user: {
-		type: Object
-	},
-	flashcards: {
-		type: Object
-	}
+	user: Object,
+	flashcards: Object
 })
+
 const newGame = ref(false);
 const score = ref(0);
 const selectedFlashcard = ref([]);

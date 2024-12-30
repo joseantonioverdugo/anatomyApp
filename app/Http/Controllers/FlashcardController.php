@@ -24,7 +24,7 @@ class FlashcardController extends Controller
      */
     public function index()
     {
-        $flashcards = Flashcard::with('category', 'subcategory')->paginate();
+        $flashcards = Flashcard::with('category', 'subcategory', 'options')->paginate();
 
         return Inertia::render('Flashcards/Index', [
             'flashcards' => FlashcardResource::collection($flashcards),
@@ -82,7 +82,7 @@ class FlashcardController extends Controller
      */
     public function show(string $id)
     {
-        $flashcard = Flashcard::with('category', 'subcategory')->findOrFail($id);
+        $flashcard = Flashcard::with('category', 'subcategory', 'options')->findOrFail($id);
 
         return Inertia::render('Flashcards/Show', [
             'flashcard' => new FlashcardResource($flashcard),
