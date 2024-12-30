@@ -42,12 +42,13 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::match(['put', 'patch', 'post'], 'flashcards/{flashcard}', [FlashcardController::class, 'update'])->name('flashcards.update');
     Route::resource('categories', CategoryController::class)->only(['index', 'store', 'show', 'update', 'destroy']);
     Route::resource('subcategories', SubcategoryController::class)->only(['index', 'store', 'show', 'update', 'destroy']);
+});
 
+Route::middleware('isUserOrAdmin')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
 
 Route::get('/game', [UserController::class, 'game'])->name('game')->middleware(['auth','isUser']);
 Route::patch('/best-score/{id}', [UserController::class, 'updateBestScore'])->name('best-score')->middleware(['auth','isUser']);

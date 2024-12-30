@@ -1,6 +1,6 @@
 <template>
 	<Head title="App" />
-	<AuthenticatedLayout>
+    <TopMenu />
 		<div v-if="!newGame" class="flex flex-col justify-center items-center h-screen">
 			<PrimaryButton @click="startNewGame">Nuevo Juego</PrimaryButton>
 			<p>Mejor puntuación: {{ user.best_score }}</p>
@@ -31,15 +31,14 @@
 				<PrimaryButton @click="resetGame">Volver a jugar</PrimaryButton>
 			</div>
 		</div>
-	</AuthenticatedLayout>
 </template>
 
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import axios from 'axios';
 import { ref } from 'vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
+import TopMenu from '../Layouts/TopMenu.vue';
 
 
 const props = defineProps({
